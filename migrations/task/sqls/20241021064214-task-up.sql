@@ -313,7 +313,7 @@ select  "CREDIT_PACKAGE".name as "組合包方案名稱",
 from "CREDIT_PURCHASE" 
 inner join "CREDIT_PACKAGE" on "CREDIT_PACKAGE".id = "CREDIT_PURCHASE".credit_package_id 
 where "CREDIT_PURCHASE".created_at >= '2024-11-01 00:00:00'
-and  "CREDIT_PURCHASE".created_at <= '2024-11-31 23:59:59'
+and  "CREDIT_PURCHASE".created_at <= '2024-11-30 23:59:59'
 group by "CREDIT_PACKAGE".name;
 -- 6-4. 查詢：計算 11 月份總營收（使用 purchase_at 欄位統計）
 -- 顯示須包含以下欄位： 總營收
