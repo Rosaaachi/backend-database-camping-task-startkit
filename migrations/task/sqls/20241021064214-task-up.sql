@@ -40,7 +40,7 @@ AND role = 'USER';
 delete from "USER"
 where email = 'opacity0@hexschooltest.io';
 
-select * from "USER"
+
 
 -- 1-4 查詢：取得USER 資料表目前所有用戶數量（提示：使用count函式）
 
@@ -68,7 +68,7 @@ insert into "CREDIT_PACKAGE"(name,credit_amount,price) values
 ('14 堂組合包方案',14,2520),
 ('21 堂組合包方案',21,4800);
 
-select * from "CREDIT_PACKAGE"
+select * from "CREDIT_PACKAGE";
 
 -- 2-2. 新增：在 `CREDIT_PURCHASE` 資料表，新增三筆資料：（請使用 name 欄位做子查詢）
     -- 1. `王小明` 購買 `14 堂組合包方案`
@@ -78,19 +78,19 @@ insert into "CREDIT_PURCHASE" (user_id, credit_package_id, purchased_credits, pr
     ((select id from "USER" where email = 'wXlTq@hexschooltest.io'),
   (select id from "CREDIT_PACKAGE" where name = '14 堂組合包方案'),
   (select credit_amount from "CREDIT_PACKAGE" where name = '14 堂組合包方案'),
-  (select price from "CREDIT_PACKAGE" where name = '14 堂組合包方案')),
+  (select price from "CREDIT_PACKAGE" where name = '14 堂組合包方案'));
 
 insert into "CREDIT_PURCHASE" (user_id, credit_package_id, purchased_credits, price_paid) values
 ((select id from "USER" where email = 'wXlTq@hexschooltest.io'),
 (select id from "CREDIT_PACKAGE" where name = '21 堂組合包方案'),
 (select credit_amount from "CREDIT_PACKAGE" where name = '21 堂組合包方案'),
-(select price from "CREDIT_PACKAGE" where name = '21 堂組合包方案'))
+(select price from "CREDIT_PACKAGE" where name = '21 堂組合包方案'));
 
 insert into "CREDIT_PURCHASE" (user_id, credit_package_id, purchased_credits, price_paid) values
 ((select id from "USER" where email = 'richman@hexschooltest.io'),
 (select id from  "CREDIT_PACKAGE" WHERE name = '14 堂組合包方案'),
 (select credit_amount from "CREDIT_PACKAGE" WHERE name = '14 堂組合包方案'),
-(select price from "CREDIT_PACKAGE" WHERE name = '14 堂組合包方案'))
+(select price from "CREDIT_PACKAGE" WHERE name = '14 堂組合包方案'));
 
 
 -- ████████  █████   █    ████   
@@ -147,7 +147,7 @@ insert into "COACH_LINK_SKILL" (coach_id, skill_id) values
     -- 1. 教練`肌肉棒子` 的經驗年數為3年
     -- 2. 教練`Q太郎` 的經驗年數為5年
 
-    update "COACH"
+update "COACH"
 set experience_years = 3
 where user_id =(select id from "USER" where email = 'muscle@hexschooltest.io');
 
@@ -238,7 +238,7 @@ insert  into  "COURSE_BOOKING" (user_id, course_id, booking_at, status )values
 -- 5-4. 查詢：取得王小明所有的預約紀錄，包含取消預約的紀錄
 select *
 from "COURSE_BOOKING" 
-where user_id =(select id from "USER" where email = 'wXlTq@hexschooltest.io' )
+where user_id =(select id from "USER" where email = 'wXlTq@hexschooltest.io' );
 
 -- 5-5. 修改：`王小明` 現在已經加入直播室了，請在`COURSE_BOOKING`更新該筆預約資料（請注意，不要更新到已經取消的紀錄）：
     -- 1. 請在該筆預約記錄他的加入直播室時間 `join_at` 設為2024-11-25 14:01:59
@@ -254,7 +254,7 @@ select
 sum("CREDIT_PURCHASE".purchased_credits) as total
   from "CREDIT_PURCHASE" 
   where "CREDIT_PURCHASE".user_id = (select id from "USER" where email ='wXlTq@hexschooltest.io')
-  group by "CREDIT_PURCHASE".user_id ;
+  group by "CREDIT_PURCHASE".user_id;
 
 
 -- 5-7. 查詢：計算用戶王小明的已使用堂數，顯示須包含以下欄位： user_id , total。 (需使用到 Count 函式與 Group By)
@@ -265,7 +265,7 @@ sum("CREDIT_PURCHASE".purchased_credits) as total
   from "COURSE_BOOKING" 
   where "COURSE_BOOKING".user_id = (select id from "USER" where email ='wXlTq@hexschooltest.io')
    and status != '課程已取消'
-  group by "COURSE_BOOKING".user_id ;
+  group by "COURSE_BOOKING".user_id;
  
 
 -- 5-8. [挑戰題] 查詢：請在一次查詢中，計算用戶王小明的剩餘可用堂數，顯示須包含以下欄位： user_id , remaining_credit
